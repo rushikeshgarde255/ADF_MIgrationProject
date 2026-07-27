@@ -1,0 +1,9 @@
+{
+	"name": "RushiadfProject",
+	"properties": {
+		"globalConfigurations": {
+			"PipelineBillingEnabled": "false"
+		}
+	},
+	"location": "centralindia"
+}
