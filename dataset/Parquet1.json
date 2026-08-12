@@ -2,7 +2,7 @@
 	"name": "Parquet1",
 	"properties": {
 		"linkedServiceName": {
-			"referenceName": "snowflake_toblob",
+			"referenceName": "ls_snowflaketosink_blob",
 			"type": "LinkedServiceReference"
 		},
 		"annotations": [],
