@@ -1,0 +1,82 @@
+{
+	"name": "PL2_RAWDATA",
+	"properties": {
+		"activities": [
+			{
+				"name": "Lookup_L2type",
+				"type": "Lookup",
+				"dependsOn": [],
+				"policy": {
+					"timeout": "0.12:00:00",
+					"retry": 0,
+					"retryIntervalInSeconds": 30,
+					"secureOutput": false,
+					"secureInput": false
+				},
+				"userProperties": [],
+				"typeProperties": {
+					"source": {
+						"type": "AzureSqlSource",
+						"sqlReaderQuery": {
+							"value": "SELECT DISTINCT L2_switch_type \nFROM dbo.vb_tbl_job a\nJOIN dbo.vb_tbl_trigger b ON a.trigger_id = b.trigger_id\nWHERE b.trigger_name = '@{pipeline().parameters.Trigger}'",
+							"type": "Expression"
+						},
+						"queryTimeout": "02:00:00",
+						"partitionOption": "None"
+					},
+					"dataset": {
+						"referenceName": "AzureSqlTable1",
+						"type": "DatasetReference"
+					}
+				}
+			},
+			{
+				"name": "Switch1",
+				"type": "Switch",
+				"dependsOn": [
+					{
+						"activity": "Lookup_L2type",
+						"dependencyConditions": [
+							"Succeeded"
+						]
+					}
+				],
+				"userProperties": [],
+				"typeProperties": {
+					"on": {
+						"value": "@activity('Lookup_L2type').output.firstRow",
+						"type": "Expression"
+					},
+					"cases": [
+						{
+							"value": " loudstorage",
+							"activities": [
+								{
+									"name": "Execute Pipeline1",
+									"type": "ExecutePipeline",
+									"dependsOn": [],
+									"policy": {
+										"secureInput": false
+									},
+									"userProperties": [],
+									"typeProperties": {
+										"waitOnCompletion": true
+									}
+								}
+							]
+						},
+						{
+							"value": "Restapi"
+						}
+					]
+				}
+			}
+		],
+		"parameters": {
+			"Trigger": {
+				"type": "string"
+			}
+		},
+		"annotations": []
+	}
+}
