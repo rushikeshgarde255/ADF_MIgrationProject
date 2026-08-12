@@ -1,0 +1,16 @@
+{
+	"name": "SnowflakeTable1",
+	"properties": {
+		"linkedServiceName": {
+			"referenceName": "lsSn_owflake",
+			"type": "LinkedServiceReference"
+		},
+		"annotations": [],
+		"type": "SnowflakeV2Table",
+		"schema": [],
+		"typeProperties": {
+			"schema": "AZURE_INTEGRATION",
+			"table": "ORDER_ITEMS_DATASET"
+		}
+	}
+}
