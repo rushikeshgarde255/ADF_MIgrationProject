@@ -35,7 +35,17 @@
 				},
 				"userProperties": [],
 				"typeProperties": {
-					"waitOnCompletion": true
+					"pipeline": {
+						"referenceName": "PL2_RAWDATA",
+						"type": "PipelineReference"
+					},
+					"waitOnCompletion": true,
+					"parameters": {
+						"Trigger": {
+							"value": "@pipeline().parameters.Trigger_variable",
+							"type": "Expression"
+						}
+					}
 				}
 			}
 		],
