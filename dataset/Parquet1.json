@@ -1,0 +1,52 @@
+{
+	"name": "Parquet1",
+	"properties": {
+		"linkedServiceName": {
+			"referenceName": "snowflake_toblob",
+			"type": "LinkedServiceReference"
+		},
+		"annotations": [],
+		"type": "Parquet",
+		"typeProperties": {
+			"location": {
+				"type": "AzureBlobStorageLocation",
+				"folderPath": {
+					"value": "@concat(\n  'snowflake/',\n  formatDateTime(utcNow(),'yyy'),'/',\n  formatDateTime(utcNow(),'MM'),'/',\n  formatDateTime(utcNow(),'dd'),'/'\n)",
+					"type": "Expression"
+				},
+				"container": "input"
+			},
+			"compressionCodec": "snappy"
+		},
+		"schema": [
+			{
+				"name": "\"order_id\"",
+				"type": "UTF8"
+			},
+			{
+				"name": "\"order_item_id\"",
+				"type": "UTF8"
+			},
+			{
+				"name": "\"product_id\"",
+				"type": "UTF8"
+			},
+			{
+				"name": "\"seller_id\"",
+				"type": "UTF8"
+			},
+			{
+				"name": "\"shipping_limit_date\"",
+				"type": "UTF8"
+			},
+			{
+				"name": "\"price\"",
+				"type": "UTF8"
+			},
+			{
+				"name": "\"freight_value\"",
+				"type": "UTF8"
+			}
+		]
+	}
+}
